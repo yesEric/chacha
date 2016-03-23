@@ -47,18 +47,20 @@ def logout():
 
 
 @auth.route('/register', methods=['GET', 'POST'])
+@login_required
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(email=form.email.data,
                     username=form.username.data,
-                    password=form.password.data)
+                    password=form.password.data,
+                    confirm=True)
         db.session.add(user)
         db.session.commit()
         token = user.generate_confirmation_token()
-        send_email(user.email, 'Confirm Your Account',
-                   'auth/email/confirm', user=user, token=token)
-        flash('A confirmation email has been sent to you by email.')
+        # send_email(user.email, 'Confirm Your Account',
+        #            'auth/email/confirm', user=user, token=token)
+        flash(u'注册成功！.')
         return redirect(url_for('auth.login'))
     return render_template('auth/register.html', form=form)
 
@@ -163,3 +165,10 @@ def change_email(token):
     else:
         flash('Invalid request.')
     return redirect(url_for('main.index'))
+
+@auth.route('/users')
+@login_required
+def users():
+
+    users=User.query.all();
+    return render_template("auth/users.html", users=users)

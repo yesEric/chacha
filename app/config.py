@@ -10,11 +10,12 @@ class Config:
     MAIL_SERVER = 'smtp.163.com' # mail server，should be replaced in the future.
     MAIL_PORT = 25
     MAIL_USE_TLS = True
-    MAIL_USERNAME = os.environ.get('MAIL_USERNAME') # setting in environment
-    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+    MAIL_USERNAME = 'rebot@chacha114.com'
+    MAIL_PASSWORD ='aBc123456'
     FLASKY_MAIL_SUBJECT_PREFIX = u'[查查网]'
-    FLASKY_MAIL_SENDER = u'查查网管理员 <flasky@example.com>'
-    FLASKY_ADMIN = os.environ.get('FLASKY_ADMIN')
+    FLASKY_MAIL_SENDER = u'查查网管理员 <rebot@chacha114.com>'
+    FLASKY_ADMIN = os.environ.get('FLASKY_ADMIN') or 'Admin'
+    FLASKY_NUMBER_PER_PAGE=20
 
     @staticmethod
     def init_app(app):
