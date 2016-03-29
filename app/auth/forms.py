@@ -5,16 +5,20 @@ from wtforms.validators import Required, Length, Email, Regexp, EqualTo, DataReq
 from wtforms import ValidationError
 from ..models import User
 
+class  BaseForm(Form):
+     LANGUAGES = ['zh']
 
-class LoginForm(Form):
-    email = StringField('Email', validators=[DataRequired(), Length(1, 64),
+class LoginForm(BaseForm):
+
+    email = StringField(u'邮箱', validators=[DataRequired(), Length(1, 64),
                                              Email()])
-    password = PasswordField('Password', validators=[Required()])
-    remember_me = BooleanField('Keep me logged in')
-    submit = SubmitField('Log In')
+    password = PasswordField(u'密码', validators=[DataRequired()])
+    remember_me = BooleanField(u'记住我')
+    submit = SubmitField(u'登录')
 
 
-class RegistrationForm(Form):
+class RegistrationForm(BaseForm):
+
     email = StringField(u'邮箱', validators=[DataRequired(), Length(1, 64),
                                            Email()])
     username = StringField(u'用户名', validators=[
@@ -34,21 +38,24 @@ class RegistrationForm(Form):
             raise ValidationError(u'用户名已经注册.')
 
 
-class ChangePasswordForm(Form):
-    old_password = PasswordField('Old password', validators=[Required()])
-    password = PasswordField('New password', validators=[
+class ChangePasswordForm(BaseForm):
+
+    old_password = PasswordField(u'原密码', validators=[Required()])
+    password = PasswordField(u'新密码', validators=[
         DataRequired(), EqualTo('password2', message='Passwords must match')])
-    password2 = PasswordField('Confirm new password', validators=[Required()])
-    submit = SubmitField('Update Password')
+    password2 = PasswordField(u'确认密码', validators=[Required()])
+    submit = SubmitField(u'修改密码')
 
 
-class PasswordResetRequestForm(Form):
+class PasswordResetRequestForm(BaseForm):
+
     email = StringField('Email', validators=[DataRequired(), Length(1, 64),
                                              Email()])
     submit = SubmitField('Reset Password')
 
 
-class PasswordResetForm(Form):
+class PasswordResetForm(BaseForm):
+
     email = StringField('Email', validators=[DataRequired(), Length(1, 64),
                                              Email()])
     password = PasswordField('New Password', validators=[
@@ -61,11 +68,12 @@ class PasswordResetForm(Form):
             raise ValidationError('Unknown email address.')
 
 
-class ChangeEmailForm(Form):
-    email = StringField('New Email', validators=[DataRequired(), Length(1, 64),
+class ChangeEmailForm(BaseForm):
+
+    email = StringField(u'新邮箱', validators=[DataRequired(), Length(1, 64),
                                                  Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    submit = SubmitField('Update Email Address')
+    password = PasswordField(u'账户密码', validators=[DataRequired()])
+    submit = SubmitField(u'修改邮箱地址')
 
     def validate_email(self, field):
         if User.query.filter_by(email=field.data).first():

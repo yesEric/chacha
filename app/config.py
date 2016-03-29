@@ -17,6 +17,7 @@ class Config:
     FLASKY_ADMIN = os.environ.get('FLASKY_ADMIN') or 'Admin'
     FLASKY_NUMBER_PER_PAGE=20
 
+
     @staticmethod
     def init_app(app):
         pass

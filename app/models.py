@@ -6,6 +6,10 @@ from flask import current_app
 from flask.ext.login import UserMixin, AnonymousUserMixin
 from . import db, login_manager
 
+class Base(db.Model):
+    __abstract__=True
+    id=db.Column(db.Integer, primary_key=True)
+
 class Permission:
     FOLLOW = 0x01
     COMMENT = 0x02
@@ -54,6 +58,7 @@ class User(UserMixin, db.Model):
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     password_hash = db.Column(db.String(128))
     confirmed = db.Column(db.Boolean, default=False)
+
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
