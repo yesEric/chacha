@@ -12,3 +12,10 @@ from . import content
 def catalogs():
     catalogs=Catalog.query.all()
     return render_template("content/catalogs.html",catalogs=catalogs)
+
+
+@content.route("/add_catalog", methods=['GET', 'POST'])
+@login_required
+def add_catalog():
+    catalogs=Catalog.query.all()
+    return render_template("content/catalogs.html",catalogs=catalogs)
