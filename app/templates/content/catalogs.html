@@ -2,9 +2,11 @@
 {% from "bootstrap/pagination.html" import render_pagination %}
 {% from "_marcos.html" import render_table %}
 
+
 {% block title %}目录管理{% endblock %}
 
 {% block page_content %}
+
 <div class="page-header">
 
 <a href="{{ url_for('content.add_catalog') }}" class="btn btn-primary">新增目录</a>
@@ -15,6 +17,7 @@
         <th>ID</th>
         <th>名称</th>
         <th>说明</th>
+         <th>操作</th>
         </tr>
     </thead>
     <tbody>
@@ -28,6 +31,8 @@
             <td>{{ catalog.id }}</td>
             <td>{{ catalog.name }}</td>
             <td>{{ catalog.description }}</td>
+            <td><a href="#" onclick="confirmAction('确定要删除此目录吗？','{{ url_for('content.delete_catalog',catalog_id=catalog.id) }}')" class="btn btn-danger btn-xs">删除</a>
+                <a href="{{ url_for('content.edit_catalog',catalog_id=catalog.id) }}" class="btn btn-primary btn-xs">修改</a> </td>
         {% endfor %}
 </tr>
     </tbody>
