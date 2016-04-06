@@ -32,11 +32,11 @@ class Content(Base):
     def __repr__(self):
         return '<Content %r>' % self.title
 
-    def __init__(self,title,body_text,catalog,user):
+    def __init__(self,title,body_text,catalog_id,user):
         self.title=title
         self.body_text=body_text
-        self.catalog=catalog
-        self.user=user
+        self.catalog_id=catalog_id
+        self.user_id=user.id
         self.created_at=datetime.now()
 
 

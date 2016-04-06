@@ -8,3 +8,4 @@ u"""
 content=Blueprint('content',__name__)
 
 from . import views
+from . import forms
